@@ -37,6 +37,8 @@ def getmsg(user_id:int,group_id:int):
     hournow=i.hour
     minutenow=f'{i.minute}' if i.minute>=10 else f'0{i.minute}'
     secondnow=f'{i.second}' if i.second>=10 else f'0{i.second}'
+    if hournow>4 or hournow<20 :
+        return f'现在还没到晚上呢'
     datezero=datetime.datetime(i.year,i.month,i.day,0,0,0)
     dateyest=datezero+datetime.timedelta(hours=-4)
     dateEight=datezero+datetime.timedelta(hours=20)
@@ -58,17 +60,16 @@ def getmsg(user_id:int,group_id:int):
                 if int(user_id)==qq:
                     cur.close()
                     conn.close()
-                    return ""
+                    return f'晚安，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
                 else :
                     tnd=tnd+1
         elif hournow>=20:
 #            print(f"dateraw{dateraw} dateEight{dateEight} second{(dateraw-dateEight).seconds}")
             if (dateraw-dateEight).seconds<=14400:
                 if int(user_id)==qq:
-                    return f'晚安，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
                     cur.close()
                     conn.close()
-                    return ""
+                    return f'晚安，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
                 else :
                     tnd=tnd+1
     sql=f"insert into data_night (groupnum,qqnum,time) values(%s,%s,now())"

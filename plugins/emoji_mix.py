@@ -52,7 +52,7 @@ async def mix_emoji(emoji_code1:str,emoji_code2:str):
     emoji1=find_emoji(emoji_code1)
     emoji2=find_emoji(emoji_code2)
     if not emoji1 or not emoji2:
-        return f"不支持该emoji组合：{emoji_code1}{emoji_code2}"#本地data没有其中的一个emoji
+        return f"不支持该emoji组合，我的库没有其中的某个emoji：{emoji_code1}{emoji_code2}"#本地data没有其中的一个emoji
     urls: List[str]=[]#初始化为str列表
 #遍历所有日期和mix的不同前后顺序的可能
     for date in dates:
@@ -64,7 +64,7 @@ async def mix_emoji(emoji_code1:str,emoji_code2:str):
                 resp = await client.get(url)
                 if resp.status_code == 200:
                     return resp.content
-            return "出错了，可能不支持该emoji组合"
+            return f"出错了QAQ，该emoji组合暂无合成结果：{emoji_code1}{emoji_code2}"
     except:
         logger.warning(traceback.format_exc())
         return "下载出错，请稍后再试"

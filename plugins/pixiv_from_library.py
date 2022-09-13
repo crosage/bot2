@@ -11,7 +11,7 @@ filename="file:///"+filename.replace("\\","/")+"/mylibrary"
 sz=len(mylib)
 
 
-pixiv_from_lib=on_command("来一张",aliases={"随机萌图","色图","涩图"})
+pixiv_from_lib=on_command("来一张",aliases={"随机萌图","色图","涩图","不色图","来张"})
 @pixiv_from_lib.handle()
 async def work(event:Event,matcher:Matcher):
     bot,=get_bots().values()
