@@ -1,6 +1,5 @@
 """
 输出第几个睡觉的
-
 """
 
 
@@ -13,7 +12,7 @@ from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters.onebot.v11.message import Message
 from .managementModule.isInGroup import isInGroup
 
-morning=on_command("晚",aliases={"呼呼"})
+morning=on_command("晚安",aliases={"呼呼"})
 @morning.handle()
 async def morning_handle(bot:Bot,event:Event):
     _,group,qq=str(event.get_session_id()).split("_")
@@ -37,7 +36,7 @@ def getmsg(user_id:int,group_id:int):
     hournow=i.hour
     minutenow=f'{i.minute}' if i.minute>=10 else f'0{i.minute}'
     secondnow=f'{i.second}' if i.second>=10 else f'0{i.second}'
-    if hournow>4 or hournow<20 :
+    if hournow>4 and hournow<20 :
         return f'现在还没到晚上呢'
     datezero=datetime.datetime(i.year,i.month,i.day,0,0,0)
     dateyest=datezero+datetime.timedelta(hours=-4)
@@ -56,7 +55,7 @@ def getmsg(user_id:int,group_id:int):
         minutepre=f'{dateraw.minute}' if dateraw.minute>=10 else f'0{dateraw.minute}'
         secondpre=f'{dateraw.second}' if dateraw.second>=10 else f'0{dateraw.second}'
         if hournow<=4:
-            if (i-dateyest).seconds<=28800:
+            if (dateraw-dateyest).seconds<=28800:
                 if int(user_id)==qq:
                     cur.close()
                     conn.close()

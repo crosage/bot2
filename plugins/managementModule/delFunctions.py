@@ -21,7 +21,7 @@ async def handle_del(event:Event,functions:Message=Arg(),name: str = ArgPlainTex
     _,group,qq=str(event.get_session_id()).split("_")
     sql=f"select * from group_function_list where group_num=%s and functions=%s"
     tmp=cur.execute(sql,[group,name])
-    if tmp==0:
+    if tmp!=0:
         sql=f"delete from group_function_list where group_num=%s and functions=%s"
         tmp=cur.execute(sql,[group,name])
         conn.commit()
