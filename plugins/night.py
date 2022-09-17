@@ -55,7 +55,7 @@ def getmsg(user_id:int,group_id:int):
         minutepre=f'{dateraw.minute}' if dateraw.minute>=10 else f'0{dateraw.minute}'
         secondpre=f'{dateraw.second}' if dateraw.second>=10 else f'0{dateraw.second}'
         if hournow<=4:
-            if (dateraw-dateyest).seconds<=28800:
+            if (dateraw-dateyest).seconds<=28800 and (dateraw-dateyest).days==0:
                 if int(user_id)==qq:
                     cur.close()
                     conn.close()
@@ -63,8 +63,8 @@ def getmsg(user_id:int,group_id:int):
                 else :
                     tnd=tnd+1
         elif hournow>=20:
-#            print(f"dateraw{dateraw} dateEight{dateEight} second{(dateraw-dateEight).seconds}")
-            if (dateraw-dateEight).seconds<=14400:
+            print(f"dateraw{dateraw} dateEight{dateEight} second{(dateraw-dateEight).seconds}")
+            if (dateraw-dateEight).seconds<=14400 and (dateraw-dateEight).days==0:
                 if int(user_id)==qq:
                     cur.close()
                     conn.close()
