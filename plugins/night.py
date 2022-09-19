@@ -59,7 +59,7 @@ def getmsg(user_id:int,group_id:int):
                 if int(user_id)==qq:
                     cur.close()
                     conn.close()
-                    return f'晚安，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
+                    return f'晚安mua~，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
                 else :
                     tnd=tnd+1
         elif hournow>=20:
@@ -68,7 +68,7 @@ def getmsg(user_id:int,group_id:int):
                 if int(user_id)==qq:
                     cur.close()
                     conn.close()
-                    return f'晚安，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
+                    return f'晚安mua~，你是群里第{tnd}个睡觉的人，睡觉时间是{dateraw.hour}:{minutepre}:{secondpre}'
                 else :
                     tnd=tnd+1
     sql=f"insert into data_night (groupnum,qqnum,time) values(%s,%s,now())"
@@ -76,4 +76,4 @@ def getmsg(user_id:int,group_id:int):
     conn.commit()
     cur.close()
     conn.close()
-    return f'晚安，现在是{hournow}:{minutenow}:{secondnow}，你是群里第{tnd}个睡觉的人哦'
+    return f'晚安mua~，现在是{hournow}:{minutenow}:{secondnow}，你是群里第{tnd}个睡觉的人哦'
