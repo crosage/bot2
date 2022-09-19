@@ -1,4 +1,4 @@
-### 塔罗牌部分修改自omega_miya
+### 部分修改自omega_miya
 
 做懒汉了
 
