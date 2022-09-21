@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-plugins/__pycache__
-=======
-plugins/__pycache__
 plugins/imagetmp
 plugins/querytmp
->>>>>>> tmp
+*.pyc
