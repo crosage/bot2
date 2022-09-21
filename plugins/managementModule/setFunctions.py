@@ -22,7 +22,7 @@ async def handle_functions(event:Event,functions:Message=Arg(),name: str = ArgPl
     sql=f"select * from name_of_functions where name=%s"
     tmp=cur.execute(sql,[name])
     if tmp==0:
-        await setGroup.reject("我还没有这个功能，请重新输入")
+        await setGroup.finish(None)
     sql=f"select * from group_function_list where group_num=%s and functions=%s"
     tmp=cur.execute(sql,[group,name])
     if tmp==0:

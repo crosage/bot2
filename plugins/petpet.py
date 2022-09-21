@@ -35,7 +35,7 @@ async def handle_sticker(matcher:Matcher,source_image:Message=Arg(),name:str=Arg
         avatar_url=messageTools.get_user_head_img_url(at_list[-1])
         await download_source_image(avatar_url)
     else :
-        await matcher.reject_arg("source_image",f"你好像没有@其他人")
+        await petpet.finish("source_image",f"你好像没有@其他人")
     resize_paste_loc:list[tuple[tuple[int,int],tuple[int,int]]]=[
             ((95, 95), (12, 15)),
             ((97, 80), (11, 30)),
