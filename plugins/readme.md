@@ -1,8 +1,8 @@
-### 塔罗牌部分修改自omega_miya
+### 部分修改自omega_miya
 
 做懒汉了
 
-(然而我现在还没弄懂mysql具体应该每次运行链接一次+关闭一次 还是怎么着)
+mysql部分可能很丑
 
 写bot初衷是觉得omega_miya很厉害
 
