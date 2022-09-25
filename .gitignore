@@ -1,3 +1,3 @@
-plugins/imagetmp
-plugins/querytmp
+plugins/imagetmp/
+plugins/querytmp/
 *.pyc

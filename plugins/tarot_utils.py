@@ -24,7 +24,7 @@ async def tarot_handle(event:Event,matcher:Matcher):
     _,group,qq=str(event.get_session_id()).split("_")
     if isInGroup(group,"tarot")==0:
         await tarot.finish(None)
-    card = random.randint(1,77)
+    card = random.randint(0,21)
     # 随机正逆
     direction = random.choice([-1, 1])
     if direction == 1:
