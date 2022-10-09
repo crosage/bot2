@@ -49,6 +49,7 @@ def find_emoji(emoji_code:str):
     return None
 
 async def mix_emoji(emoji_code1:str,emoji_code2:str):
+    logger.debug("enter mix emoji function")
     emoji1=find_emoji(emoji_code1)
     emoji2=find_emoji(emoji_code2)
     if not emoji1 or not emoji2:
@@ -58,13 +59,15 @@ async def mix_emoji(emoji_code1:str,emoji_code2:str):
     for date in dates:
         urls.append(create_url(date,emoji1,emoji2))
         urls.append(create_url(date,emoji2,emoji1))
-    try:#client在多次访问时保持原有TCP连接
-        async with httpx.AsyncClient(timeout=20) as client:  # type: ignore
+    try:
+        async with httpx.AsyncClient(timeout=20,proxies={"all://":"http://localhost:7890"}) as client:  # type: ignore
+            logger.warning("start request")
             for url in urls:
                 resp = await client.get(url)
+                print(f"{resp.status_code}")
                 if resp.status_code == 200:
                     return resp.content
-            return f"出错了QAQ，该emoji组合暂无合成结果：{emoji_code1}{emoji_code2}"
-    except:
-        logger.warning(traceback.format_exc())
+            return f"出错了，该emoji组合暂无合成结果：{emoji_code1}{emoji_code2}"
+    except Exception as e:
+        logger.warning(str(e))
         return "下载出错，请稍后再试"

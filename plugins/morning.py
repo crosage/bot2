@@ -1,16 +1,18 @@
 import datetime
 import random
-from re import fullmatch 
+from re import fullmatch
+from socket import MsgFlag 
 from pymysql import *
 from nonebot.matcher import Matcher
 from nonebot.plugin import on_keyword
 from nonebot.plugin import on_command
+from nonebot.plugin.on import on_fullmatch
 from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters.onebot.v11.message import Message
 from .managementModule.isInGroup import isInGroup
 greetings=["早安","早上好","早哦"]
 
-morning=on_command('早上好',aliases={"早安","早哦"})
+morning=on_fullmatch(msg=["早上好","早","早安","早哦","早捏","おはよ"])
 @morning.handle()
 async def morning_handle(bot:Bot,event:Event):
     _,group,qq=str(event.get_session_id()).split("_")

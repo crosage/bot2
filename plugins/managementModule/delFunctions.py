@@ -1,15 +1,19 @@
+from re import fullmatch
 from pymysql import *
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters import Message
 from nonebot.matcher import Matcher #matcher 匹配器
 from nonebot.params import Arg,CommandArg,ArgPlainText #param 参数，对参数的操作
-
+from nonebot.log import logger
 
 delFunctions=on_command("del",aliases={"删除"},priority=1,block=True)
 @delFunctions.handle()
 async def delFunctions_handle(matcher:Matcher,event:Event,args:Message=CommandArg()):
     text=args.extract_plain_text()
+    _,group,qq=str(event.get_session_id()).split("_")
+    if qq!=str(2051252420):
+       await delFunctions.finish()
     if text :
         matcher.set_arg("functions",args)
 

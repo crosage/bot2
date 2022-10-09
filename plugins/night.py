@@ -8,11 +8,12 @@ import random
 from pymysql import *
 from nonebot.plugin import on_keyword
 from nonebot.plugin import on_command
+from nonebot.plugin.on import on_fullmatch
 from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters.onebot.v11.message import Message
 from .managementModule.isInGroup import isInGroup
 
-morning=on_command("晚安",aliases={"呼呼"})
+morning=on_fullmatch(msg=["晚安","呼呼","晚安捏","晚安大家","おやすみ"])
 @morning.handle()
 async def morning_handle(bot:Bot,event:Event):
     _,group,qq=str(event.get_session_id()).split("_")
@@ -63,7 +64,7 @@ def getmsg(user_id:int,group_id:int):
                 else :
                     tnd=tnd+1
         elif hournow>=20:
-            print(f"dateraw{dateraw} dateEight{dateEight} second{(dateraw-dateEight).seconds}")
+#            print(f"dateraw{dateraw} dateEight{dateEight} second{(dateraw-dateEight).seconds}")
             if (dateraw-dateEight).seconds<=14400 and (dateraw-dateEight).days==0:
                 if int(user_id)==qq:
                     cur.close()

@@ -3,6 +3,7 @@
 
 """
 from io import BytesIO
+from re import fullmatch
 from typing import Literal
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
@@ -12,13 +13,15 @@ from nonebot.adapters.onebot.v11.message import MessageSegment
 from nonebot.adapters.onebot.v11.bot import Bot
 from nonebot.adapters.onebot.v11.event import MessageEvent
 from nonebot import on_command
+from nonebot.plugin.on import on_fullmatch
 from .managementModule.isInGroup import isInGroup
 from .tarot_data import TarotCards
+from nonebot.plugin.on import on_fullmatch
 from .tarot_typing import TarotCard
 import random
 import os
 
-tarot=on_command("tarot",aliases={"塔罗牌"})
+tarot=on_fullmatch(msg=["tarot","塔罗牌"])
 @tarot.handle()
 async def tarot_handle(event:Event,matcher:Matcher):
     _,group,qq=str(event.get_session_id()).split("_")
