@@ -5,7 +5,7 @@ from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters.onebot.v11.message import Message
 from .managementModule.isInGroup import isInGroup
 
-jrrp=on_keyword(['jrrp','今日人品'])
+jrrp=on_keyword(['jrrp','今日人品'],priority=20)
 @jrrp.handle()
 async def jrrp_handle(bot:Bot,event:Event):
     _,group,qq=str(event.get_session_id()).split("_")

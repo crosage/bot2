@@ -7,7 +7,7 @@ from nonebot.matcher import Matcher #matcher 匹配器
 from nonebot.params import Arg,CommandArg,ArgPlainText #param 参数，对参数的操作
 from nonebot.log import logger
 
-delFunctions=on_command("del",aliases={"删除"},priority=1,block=True)
+delFunctions=on_command("del",aliases={"删除"},priority=10,block=True)
 @delFunctions.handle()
 async def delFunctions_handle(matcher:Matcher,event:Event,args:Message=CommandArg()):
     text=args.extract_plain_text()

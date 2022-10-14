@@ -18,9 +18,10 @@ from .managementModule.isInGroup import isInGroup
 from .tarot_data import TarotCards
 from nonebot.plugin.on import on_fullmatch
 from .tarot_typing import TarotCard
+from .Configs import default_font_path
 import random
 import os
-
+from nonebot.log import logger
 tarot=on_fullmatch(msg=["tarot","塔罗牌"])
 @tarot.handle()
 async def tarot_handle(event:Event,matcher:Matcher):
@@ -44,7 +45,8 @@ async def tarot_handle(event:Event,matcher:Matcher):
         need_upright=need_upright,
         need_reversed=need_reversed
     )#返回路径
-    card_image.replace("\\","/")
+    # logger.error(card_image)
+    # logger.error("file:///"+card_image)
     await matcher.send(MessageSegment.image("file:///"+card_image))
 
     
@@ -113,7 +115,7 @@ def generate_tarot_card(
     """
     取整除
     """
-    font_path=os.getcwd()+"\\awesomebot\\plugins\\font\\fzzxhk.ttf"
+    font_path=default_font_path
     title_font = ImageFont.truetype(font_path, width // 10)
     m_title_font = ImageFont.truetype(font_path, width // 20)
     text_font = ImageFont.truetype(font_path, width // 25)

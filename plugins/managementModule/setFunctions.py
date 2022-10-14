@@ -4,12 +4,13 @@ from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters import Message
 from nonebot.matcher import Matcher #matcher 匹配器
 from nonebot.params import Arg,CommandArg,ArgPlainText #param 参数，对参数的操作
+from nonebot.log import logger
 
-
-setGroup=on_command("add",aliases={"添加"},priority=1,block=True)
+setGroup=on_command("add",aliases={"添加"},priority=10,block=True)
 @setGroup.handle()
 async def setGroup_handle(matcher:Matcher,event:Event,args:Message=CommandArg()):
     text=args.extract_plain_text()
+    logger.info("????????")
     if text :
         matcher.set_arg("functions",args)
 

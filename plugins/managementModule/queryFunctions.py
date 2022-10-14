@@ -11,7 +11,7 @@ from nonebot.adapters.onebot.v11.message import MessageSegment
 from PIL import ImageDraw
 import os
 
-queryGroup=on_command("云栀功能",aliases={"云栀功能查询"},priority=3)
+queryGroup=on_command("云栀功能",aliases={"云栀功能查询"},priority=20)
 @queryGroup.handle()
 async def queryGroup_handle(matcher:Matcher,state:T_State,event:Event,width:int=1024):
     conn=connect(host="localhost",user="root",password="allforqqbot",database="qqbot",port=3306,charset="UTF8")

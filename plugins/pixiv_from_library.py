@@ -1,5 +1,6 @@
 import os
 import random
+from PIL import Image
 from nonebot import on_command
 from nonebot.matcher import Matcher
 from nonebot import get_bots
@@ -23,4 +24,13 @@ async def work(event:Event,matcher:Matcher):
     try :
         await pixiv_from_lib.send(MessageSegment.image(filename+f"/{mylib[image_id]}"))
     except :
-        await pixiv_from_lib.send(MessageSegment.text(f"图片发送失败，可能因为被吞{mylib[image_id]}"))
+        
+        await pixiv_from_lib.send(MessageSegment.text(f"图片发送失败，可能因为被吞{mylib[image_id]}\n稍后可能发一张处理过的图"))
+        file_path=os.getcwd()
+        file_path=file_path.replace("\\","/")+"/mylibrary"
+        img=Image.open(file_path+f"/{mylib[image_id]}")
+        h=img.height
+        w=img.width
+        img.resize(size=(int(h*0.9),int(w*0.9)))
+        img.save(file_path+f"/tmp.png")
+        await pixiv_from_lib.send(MessageSegment.image(file_path+f"/tmp.png"))
