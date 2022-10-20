@@ -4,6 +4,7 @@ from PIL import Image
 from nonebot import on_command
 from nonebot.matcher import Matcher
 from nonebot import get_bots
+from nonebot.plugin.on import on_fullmatch
 from nonebot.adapters.onebot.v11 import Event
 from nonebot.adapters.onebot.v11.message import MessageSegment
 from .managementModule.isInGroup import isInGroup
@@ -31,6 +32,6 @@ async def work(event:Event,matcher:Matcher):
         img=Image.open(file_path+f"/{mylib[image_id]}")
         h=img.height
         w=img.width
-        img.resize(size=(int(h*0.9),int(w*0.9)))
-        img.save(file_path+f"/tmp.png")
+        img2=img.resize(size=(int(w*0.4),int(h*0.4)))
+        img2.save(file_path+f"/tmp.png")
         await pixiv_from_lib.send(MessageSegment.image(file_path+f"/tmp.png"))

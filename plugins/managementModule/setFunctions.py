@@ -10,7 +10,9 @@ setGroup=on_command("add",aliases={"添加"},priority=10,block=True)
 @setGroup.handle()
 async def setGroup_handle(matcher:Matcher,event:Event,args:Message=CommandArg()):
     text=args.extract_plain_text()
-    logger.info("????????")
+    _,group,qq=str(event.get_session_id()).split("_")
+    if qq!=str(2051252420):
+       await setGroup.finish()
     if text :
         matcher.set_arg("functions",args)
 

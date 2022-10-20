@@ -12,8 +12,8 @@ class HttpFecher(object):
         'sec-ch-ua-platform': '"Windows"',
         'sec-gpc': '1',
         'upgrade-insecure-requests': '1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/101.0.4951.54 Safari/537.36'
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0',
+        "cookie":"PHPSESSID=你的cookie"
     }
     _http_proxy_config="http://localhost:7890"
     def __init__(self,timeout,cookies:dict[str,str],headers:dict[str,str]) -> None:
@@ -27,14 +27,17 @@ class HttpFecher(object):
     
     async def get_json_dict(self,url:str,params:dict[str,str]):
         async with aiohttp.ClientSession(timeout=20) as session:
-            async with session.get(url=url,params=params,cookies=self.cookies,proxy=self._http_proxy_config,timeout=self.timeout) as rp:
+            async with session.get(url=url,headers=self.headers,params=params,proxy=self._http_proxy_config,timeout=self.timeout) as rp:
+                logger.warning(f"{rp.headers}")
+                logger.warning(f"{self.headers}")
+                # logger.warning(f"{await rp.text()}")
+                # logger.info(f"{await rp.read()}")
+                logger.error(f"{rp.status}")
                 _json=await rp.json()
-                logger.info(f"{rp.json}")
                 _result={"status":rp.status,"headers":rp.headers,"cookies":rp.cookies,"result":_json}
                 logger.info(f"data{rp.status}")
                 return _result
     async def get_bytes(self,url: str,*,params: dict[str, str] | None = None):
-        """使用 get 方法获取 Bytes 目标"""
         async with aiohttp.ClientSession(timeout=20) as session:
             async with session.get(url=url,params=params,headers=self.headers,cookies=self.cookies,proxy=self._http_proxy_config,timeout=self.timeout) as rp:
                 _bytes = await rp.read()
