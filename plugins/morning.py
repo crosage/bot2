@@ -1,4 +1,3 @@
-from cmath import log
 import datetime
 import random
 from re import fullmatch
@@ -11,7 +10,6 @@ from nonebot.plugin.on import on_fullmatch
 from nonebot.adapters.onebot.v11 import Bot,Event
 from nonebot.adapters.onebot.v11.message import Message
 from .managementModule.isInGroup import isInGroup
-from nonebot.log import logger
 greetings=["早安","早上好","早哦"]
 
 morning=on_fullmatch(msg=["早上好","早","早安","早哦","早捏","おはよ"])
@@ -45,8 +43,7 @@ def getmsg(user_id:int,group_id:int):
         minutepre=f'{dateraw.minute}' if dateraw.minute>=10 else f'0{dateraw.minute}'
         secondpre=f'{dateraw.second}' if dateraw.second>=10 else f'0{dateraw.second}'
 #        print(f"{daynow} {dateraw.day} {qq} {user_id} {type(group_id)} )")
-        # logger.info(f"{(i-dateraw).days}")
-        if (i-dateraw).days==0:
+        if dateraw.day==daynow:
 #            print(f"{user_id} {qq} {type(user_id)} {type(qq)}")
             if int(user_id)==qq:
                 return f'{greetings[random.randint(0,2)]}，你是群里第{tnd}个起床的人，起床时间是{dateraw.hour}:{minutepre}:{secondpre}'

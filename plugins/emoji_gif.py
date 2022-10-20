@@ -55,7 +55,7 @@ async def gif_emoji(emoji_code1:str):
 #遍历所有日期和mix的不同前后顺序的可能
     url=create_url(emoji1)
     try:#client在多次访问时保持原有TCP连接
-        async with httpx.AsyncClient(timeout=20,proxies={"all://":"http://localhost:7890"}) as client:  # type: ignore
+        async with httpx.AsyncClient(timeout=20) as client:  # type: ignore
             resp = await client.get(url)
             if resp.status_code == 200:
                 return resp.content
