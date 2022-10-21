@@ -33,7 +33,7 @@ from nonebot.params import CommandArg,ArgStr
 
 class Pixiv(object):
     _default_headers=HttpFecher._default_headers
-    _api_fetcher=HttpFecher(timeout=10, headers=_default_headers, cookies={"cookies":"42279487_AG4HmdEZ5UhzySdgn5imxVARbCYk6p0W"})
+    _api_fetcher=HttpFecher(timeout=10, headers=_default_headers, cookies={"cookies":"你的cookie"})
 def resize_with_filling(preimage, size: tuple[int, int]):
     """在不损失原图长宽比的条件下, 使用透明图层将原图转换成指定大小"""
     _image = preimage
@@ -195,7 +195,7 @@ class PixivRanking(Pixiv):
                 for i in range(0,1):
                     imgurl=imgurls+str(i)+".jpg"
                     logger.info(f"url={imgurl}")
-                    async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"42279487_AG4HmdEZ5UhzySdgn5imxVARbCYk6p0W"},proxy="http://localhost:7890") as resp:
+                    async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp:
                         if resp.status==200:
                             # logger.warning("运行到这了")
                             _bytes=await resp.read()
@@ -206,7 +206,7 @@ class PixivRanking(Pixiv):
                             #     f.write(_bytes)
                         else :
                             imgurl=imgurl.replace("jpg","png")
-                            async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"42279487_AG4HmdEZ5UhzySdgn5imxVARbCYk6p0W"},proxy="http://localhost:7890") as resp2:
+                            async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp2:
                                 _bytes=await resp2.read()
                                 preview.previews.append(PreviewImageThumbs(f"Pid:{content['illust_id']}\n[No.{content['rank']}]:{content['title']}\nAuther:{content['user_name']}",_bytes))
                                 # imgtype=str(imgurl.split(".")[-1])
@@ -223,7 +223,7 @@ class PixivRanking(Pixiv):
         _headers.update({"referer":"https://www.pixiv.net"})
         imgurl=f"https://www.pixiv.net/ajax/illust/{id}"
         async with aiohttp.ClientSession() as session:
-            async with session.get(url=imgurl,headers=_headers,cookies={"cookies":"42279487_AG4HmdEZ5UhzySdgn5imxVARbCYk6p0W"},proxy="http://localhost:7890") as resp:
+            async with session.get(url=imgurl,headers=_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp:
                 result=await resp.text()
             if resp.status !=200:
                 return "error"
@@ -234,7 +234,7 @@ class PixivRanking(Pixiv):
             newurl=newurl.replace("\\","")
             newurl=newurl.replace("\"","")
             logger.error(f"{newurl}")
-            async with session.get(url=newurl,headers=_headers,cookies={"cookies":"42279487_AG4HmdEZ5UhzySdgn5imxVARbCYk6p0W"},proxy="http://localhost:7890") as resp2:
+            async with session.get(url=newurl,headers=_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp2:
                 result2=await resp2.read()
                 new_path=pixiv_path+f"\\{id}"
                 imgtype=str(newurl.split(".")[-1])
@@ -313,7 +313,6 @@ async def pixiv18work(bot:Bot,page:str=ArgStr("page")):
 pixiv_id=on_command("pixiv",priority=30,block=True)
 @pixiv_id.handle()
 async def pixiv_id_handle(bot:Bot,event:Event,state:T_State,cmd_arg: Message = CommandArg()):
-    return 
     _,group,qq=str(event.get_session_id()).split("_")
     logger.info("被pixiv接收到")
     if isInGroup(group,"pixiv")==0:
