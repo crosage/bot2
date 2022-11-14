@@ -2,6 +2,7 @@ import re
 from tkinter import E
 from typing import List
 import emoji
+import aiohttp
 import httpx
 import traceback
 from nonebot import on_regex,get_driver
@@ -60,14 +61,15 @@ async def mix_emoji(emoji_code1:str,emoji_code2:str):
         urls.append(create_url(date,emoji1,emoji2))
         urls.append(create_url(date,emoji2,emoji1))
     try:
-        async with httpx.AsyncClient(timeout=20,proxies={"all://":"http://localhost:7890"}) as client:  # type: ignore
+        async with aiohttp.ClientSession() as session:  # type: ignore
             logger.warning("start request")
             for url in urls:
-                resp = await client.get(url)
-                print(f"{resp.status_code}")
-                if resp.status_code == 200:
-                    return resp.content
+                logger.error(f"{url}")
+                async with session.get(url=url,proxy="http://localhost:7890") as resp:
+                    r=await resp.read()
+                    if resp.status == 200:
+                        return r
             return f"出错了，该emoji组合暂无合成结果：{emoji_code1}{emoji_code2}"
     except Exception as e:
-        logger.warning(str(e))
+        logger.warning(traceback.format_exc())
         return "下载出错，请稍后再试"

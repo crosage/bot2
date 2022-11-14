@@ -12,8 +12,8 @@ delFunctions=on_command("del",aliases={"删除"},priority=10,block=True)
 async def delFunctions_handle(matcher:Matcher,event:Event,args:Message=CommandArg()):
     text=args.extract_plain_text()
     _,group,qq=str(event.get_session_id()).split("_")
-    if qq!=str(2051252420):
-       await delFunctions.finish()
+    # if qq!=str(2051252420):
+    #    await delFunctions.finish()
     if text :
         matcher.set_arg("functions",args)
 
@@ -24,7 +24,11 @@ async def handle_del(event:Event,functions:Message=Arg(),name: str = ArgPlainTex
     cur=conn.cursor()
     _,group,qq=str(event.get_session_id()).split("_")
     sql=f"select * from group_function_list where group_num=%s and functions=%s"
+    sql2=f"select * from name_of_functions where name=%s"
     tmp=cur.execute(sql,[group,name])
+    tmp2=cur.execute(sql2,[name])
+    if tmp2==0:
+        return 
     if tmp!=0:
         sql=f"delete from group_function_list where group_num=%s and functions=%s"
         tmp=cur.execute(sql,[group,name])

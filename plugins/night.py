@@ -38,7 +38,7 @@ def getmsg(user_id:int,group_id:int):
     minutenow=f'{i.minute}' if i.minute>=10 else f'0{i.minute}'
     secondnow=f'{i.second}' if i.second>=10 else f'0{i.second}'
     if hournow>4 and hournow<20 :
-        return f'现在还没到晚上呢'
+        return f'晚安(￣o￣) . z Z'
     datezero=datetime.datetime(i.year,i.month,i.day,0,0,0)
     dateyest=datezero+datetime.timedelta(hours=-4)
     dateEight=datezero+datetime.timedelta(hours=20)

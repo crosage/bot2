@@ -1,6 +1,7 @@
 import re
 from tkinter import E
 from typing import List
+import aiohttp
 import emoji
 import httpx
 import traceback
@@ -55,11 +56,13 @@ async def gif_emoji(emoji_code1:str):
 #遍历所有日期和mix的不同前后顺序的可能
     url=create_url(emoji1)
     try:#client在多次访问时保持原有TCP连接
-        async with httpx.AsyncClient(timeout=20) as client:  # type: ignore
-            resp = await client.get(url)
-            if resp.status_code == 200:
-                return resp.content
-            return f"该emoji暂无动图：{emoji_code1}"
+        async with aiohttp.ClientSession() as session:  # type: ignore
+            logger.warning("start request")
+            logger.error(f"{url}")
+            async with session.get(url=url,proxy="http://localhost:7890") as resp:
+                r=await resp.read()
+                if resp.status == 200:
+                    return r
     except:
         logger.warning(traceback.format_exc())
         return "下载出错，请稍后再试"

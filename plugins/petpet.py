@@ -67,9 +67,11 @@ async def handle_sticker(matcher:Matcher,source_image:Message=Arg(),name:str=Arg
         background.paste(frame,(0,0),mask=frame)
         frame_list.append(background)
         background.save(frameurl+f"\\tmp{frame_index}.png")
-    frame_list[0].save(saveurl,save_all=True,append_images=frame_list,duration=0.06)
-    await petpet.send(MessageSegment.image("file:///"+saveurl.replace("\\","/")))
-
+    frame_list[0].save(saveurl,save_all=True,append_images=frame_list,duration=0.02)
+    try:
+        await petpet.send(MessageSegment.image("file:///"+saveurl.replace("\\","/")))
+    except :
+        await petpet.finish("你的图像被腾讯识别成R18了（哭")
 
 async def download_source_image(url:str):
     filename=os.getcwd()+"\\awesomebot\\plugins\\imagetmp\\imagetmp.png"

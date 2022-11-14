@@ -4,6 +4,7 @@ from re import fullmatch
 from socket import MsgFlag 
 from pymysql import *
 from nonebot.matcher import Matcher
+from nonebot.log import logger
 from nonebot.plugin import on_keyword
 from nonebot.plugin import on_command
 from nonebot.plugin.on import on_fullmatch
@@ -29,7 +30,7 @@ def getmsg(user_id:int,group_id:int):
     hournow=i.hour
     minutenow=f'{i.minute}' if i.minute>=10 else f'0{i.minute}'
     secondnow=f'{i.second}' if i.second>=10 else f'0{i.second}'
-    
+    i=i.replace(hour=0,minute=0,second=0)
     conn=connect(host="localhost",user="root",password="allforqqbot",database="qqbot",port=3306,charset="UTF8")
     cur=conn.cursor()
     sql=f"select * from data_morning where groupnum=%s"
@@ -42,9 +43,9 @@ def getmsg(user_id:int,group_id:int):
         qq:int=raws[1]
         minutepre=f'{dateraw.minute}' if dateraw.minute>=10 else f'0{dateraw.minute}'
         secondpre=f'{dateraw.second}' if dateraw.second>=10 else f'0{dateraw.second}'
-#        print(f"{daynow} {dateraw.day} {qq} {user_id} {type(group_id)} )")
-        if dateraw.day==daynow:
-#            print(f"{user_id} {qq} {type(user_id)} {type(qq)}")
+        # logger.info(f"{daynow} {dateraw.day} {qq} {user_id} {type(group_id)} {(i-dateraw).days} )")
+        if (dateraw-i).days==0:
+            # logger.info(f"{user_id} {qq} {type(user_id)} {type(qq)}")
             if int(user_id)==qq:
                 return f'{greetings[random.randint(0,2)]}，你是群里第{tnd}个起床的人，起床时间是{dateraw.hour}:{minutepre}:{secondpre}'
             else :
