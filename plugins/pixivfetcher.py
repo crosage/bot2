@@ -13,7 +13,7 @@ class HttpFecher(object):
         'sec-gpc': '1',
         'upgrade-insecure-requests': '1',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0',
-        "cookie":"PHPSESSID="
+        "cookie":"PHPSESSID=你的cookie"
     }
     _http_proxy_config="http://localhost:7890"
     def __init__(self,timeout,cookies:dict[str,str],headers:dict[str,str]) -> None:

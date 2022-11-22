@@ -33,7 +33,7 @@ from nonebot.params import CommandArg,ArgStr
 
 class Pixiv(object):
     _default_headers=HttpFecher._default_headers
-    _api_fetcher=HttpFecher(timeout=10, headers=_default_headers, cookies={"cookies":"42279487_ELVc6XnA65su8WLT7tdNN8MKNE5qbLaH"})
+    _api_fetcher=HttpFecher(timeout=10, headers=_default_headers, cookies={"cookies":"你的cookie"})
 def resize_with_filling(preimage, size: tuple[int, int]):
     """在不损失原图长宽比的条件下, 使用透明图层将原图转换成指定大小"""
     _image = preimage
@@ -196,7 +196,7 @@ class PixivRanking(Pixiv):
                     imgurl=imgurls
                     # imgurl=imgurls+str(i)+".jpg"
                     logger.info(f"url={imgurl}")
-                    async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"42279487_ELVc6XnA65su8WLT7tdNN8MKNE5qbLaH"},proxy="http://localhost:7890") as resp:
+                    async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp:
                         if resp.status==200:
                             # logger.warning("运行到这了")
                             _bytes=await resp.read()
@@ -207,7 +207,7 @@ class PixivRanking(Pixiv):
                             #     f.write(_bytes)
                         else :
                             imgurl=imgurl.replace("jpg","png")
-                            async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"42279487_ELVc6XnA65su8WLT7tdNN8MKNE5qbLaH"},proxy="http://localhost:7890") as resp2:
+                            async with session.get(url=imgurl,headers=new_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp2:
                                 _bytes=await resp2.read()
                                 preview.previews.append(PreviewImageThumbs(f"Pid:{content['illust_id']}\n[No.{content['rank']}]\nAuther:{content['user_name']}",_bytes))
                                 # imgtype=str(imgurl.split(".")[-1])
@@ -225,7 +225,7 @@ class PixivRanking(Pixiv):
         imgurl=f"https://www.pixiv.net/artworks/{id}"
         logger.error(f"{imgurl}")
         async with aiohttp.ClientSession() as session:
-            async with session.get(url=imgurl,headers=_headers,cookies={"cookies":"42279487_ELVc6XnA65su8WLT7tdNN8MKNE5qbLaH"},proxy="http://localhost:7890") as resp:
+            async with session.get(url=imgurl,headers=_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp:
                 result=await resp.text()
             logger.error(result)
             if resp.status !=200:
@@ -244,7 +244,7 @@ class PixivRanking(Pixiv):
                     return "R-18"
                 except:
                     logger.info("非R-18")
-            async with session.get(url=newurl,headers=_headers,cookies={"cookies":"42279487_ELVc6XnA65su8WLT7tdNN8MKNE5qbLaH"},proxy="http://localhost:7890") as resp2:
+            async with session.get(url=newurl,headers=_headers,cookies={"cookies":"你的cookie"},proxy="http://localhost:7890") as resp2:
                 result2=await resp2.read()
                 new_path=pixiv_path+f"\\{id}"
                 imgtype=str(newurl.split(".")[-1])

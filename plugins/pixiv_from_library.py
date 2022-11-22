@@ -14,7 +14,7 @@ filename="file:///"+filename.replace("\\","/")+"/mylibrary"
 sz=len(mylib)
 
 
-pixiv_from_lib=on_command("来一张",aliases={"随机萌图","色图","涩图","不色图","来张"})
+pixiv_from_lib=on_command("来一张",aliases={"随机萌图","色图","涩图","不色图","来张","laizhang"})
 @pixiv_from_lib.handle()
 async def work(event:Event,matcher:Matcher):
     bot,=get_bots().values()
@@ -29,7 +29,7 @@ async def work(event:Event,matcher:Matcher):
         # await pixiv_from_lib.send(MessageSegment.image("file:///D:/bot/HuoZiYinShuasrc/HuoZiYinShua/lizi.jpg"))
         # logger.info("********************************************")
         await pixiv_from_lib.send(MessageSegment.image(filename+f"/{mylib[image_id]}"))
-        logger.info(f"{image_id}")
+        logger.error(f"{image_id}")
     except :
         
         await pixiv_from_lib.send(MessageSegment.text(f"图片发送失败，可能因为被吞{mylib[image_id]}\n稍后可能发一张处理过的图"))
